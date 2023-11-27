@@ -5,71 +5,84 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
 
-public class MiniStatement extends JFrame implements ActionListener{
- 
-    JButton b1, b2;
-    JLabel l1;
-    MiniStatement(String pin){
+public class MiniStatement extends JFrame implements ActionListener {
+
+    private JButton exitButton;
+    private JLabel bankLabel, cardNumberLabel, transactionHistoryLabel, balanceLabel;
+
+    public MiniStatement(String pin) {
         super("Mini Statement");
+
+        // Set frame properties
         getContentPane().setBackground(Color.WHITE);
-        setSize(400,600);
-        setLocation(20,20);
-        
-        l1 = new JLabel();
-        add(l1);
-        
-        JLabel l2 = new JLabel("Indian Bank");
-        l2.setBounds(150, 20, 100, 20);
-        add(l2);
-        
-        JLabel l3 = new JLabel();
-        l3.setBounds(20, 80, 300, 20);
-        add(l3);
-        
-        JLabel l4 = new JLabel();
-        l4.setBounds(20, 400, 300, 20);
-        add(l4);
-        
-        try{
-            Conn c = new Conn();
-            ResultSet rs = c.s.executeQuery("select * from login where pin = '"+pin+"'");
-            while(rs.next()){
-                l3.setText("Card Number:    " + rs.getString("cardno").substring(0, 4) + "XXXXXXXX" + rs.getString("cardno").substring(12));
+        setSize(400, 600);
+        setLocation(20, 20);
+        setLayout(null);
+
+        // Labels initialization
+        bankLabel = new JLabel("Indian Bank");
+        bankLabel.setBounds(150, 20, 100, 20);
+        add(bankLabel);
+
+        cardNumberLabel = new JLabel();
+        cardNumberLabel.setBounds(20, 80, 300, 20);
+        add(cardNumberLabel);
+
+        transactionHistoryLabel = new JLabel();
+        transactionHistoryLabel.setBounds(20, 140, 400, 200);
+        add(transactionHistoryLabel);
+
+        balanceLabel = new JLabel();
+        balanceLabel.setBounds(20, 400, 300, 20);
+        add(balanceLabel);
+
+        // Retrieve card number from the database
+        try {
+            Conn connection = new Conn();
+            ResultSet resultSet = connection.s.executeQuery("select * from login where pin = '" + pin + "'");
+            while (resultSet.next()) {
+                cardNumberLabel.setText("Card Number:    " + resultSet.getString("cardno").substring(0, 4) + "XXXXXXXX" + resultSet.getString("cardno").substring(12));
             }
-        }catch(Exception e){}
-        	 
-        try{
-            int balance = 0;
-            Conn c1  = new Conn();
-            ResultSet rs = c1.s.executeQuery("SELECT * FROM bank where pin = '"+pin+"'");
-            while(rs.next()){
-                l1.setText(l1.getText() + "<html>"+rs.getString("date")+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("type") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + rs.getString("amount") + "<br><br><html>");
-                if(rs.getString("type").equals("Deposit")){
-                    balance += Integer.parseInt(rs.getString("amount"));
-                }else{
-                    balance -= Integer.parseInt(rs.getString("amount"));
-                }
-            }
-            l4.setText("Your total Balance is Rs "+balance);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        setLayout(null);
-        b1 = new JButton("Exit");
-        add(b1);
-        
-        b1.addActionListener(this);
-        
-        l1.setBounds(20, 140, 400, 200);
-        b1.setBounds(20, 500, 100, 25);
+
+        // Retrieve transaction history and calculate balance
+        try {
+            int balance = 0;
+            Conn connection1 = new Conn();
+            ResultSet resultSet = connection1.s.executeQuery("SELECT * FROM bank where pin = '" + pin + "'");
+            while (resultSet.next()) {
+                transactionHistoryLabel.setText(transactionHistoryLabel.getText() + "<html>" + resultSet.getString("date") +
+                        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + resultSet.getString("mode") +
+                        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + resultSet.getString("amount") + "<br><br><html>");
+
+                if (resultSet.getString("mode").equals("Deposit")) {
+                    balance += Integer.parseInt(resultSet.getString("amount"));
+                } else {
+                    balance -= Integer.parseInt(resultSet.getString("amount"));
+                }
+            }
+            balanceLabel.setText("Your total Balance is Rs " + balance);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Exit button initialization
+        exitButton = new JButton("Exit");
+        exitButton.setBounds(20, 500, 100, 25);
+        add(exitButton);
+
+        // Add action listener to the exit button
+        exitButton.addActionListener(this);
     }
-    public void actionPerformed(ActionEvent ae){
+
+    // ActionListener implementation for the exit button
+    public void actionPerformed(ActionEvent ae) {
         this.setVisible(false);
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         new MiniStatement("").setVisible(true);
     }
-    
 }
