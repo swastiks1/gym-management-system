@@ -1,0 +1,66 @@
+database_name: java_swing_db
+user: admin
+password: admin
+
+
+create table ambulances (
+    id int(11) NOT NULL,
+    name varchar(255) DEFAULT NULL,
+    phone varchar(255) DEFAULT NULL,
+    added_user_id int(11) DEFAULT NULL,
+    create_at timestamp NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+insert into ambulances (id, name, phone, added_user_id, create_at) VALUES
+(1, 'A Abmulance', '01746799841', 2, '2022-01-03 17:32:30'),
+(2, 'B Abmulance', '01746799842', 2, '2022-01-03 17:32:30'),
+(3, 'C Abmulance', '01746799843', 2, '2022-01-03 17:32:51');
+
+create table bookings (
+  id int(11) NOT NULL,
+  ambulance_id int(11) DEFAULT NULL,
+  name varchar(255) DEFAULT NULL,
+  phone varchar(255) DEFAULT NULL,
+  location varchar(255) DEFAULT NULL,
+  price int(255) DEFAULT NULL,
+  trx_id varchar(255) DEFAULT NULL,
+  updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+insert into bookings (id, ambulance_id, name, phone, location, price, trx_id, updated_at, created_at) VALUES
+(3, 2, 'kamal', '01846588735', 'dhaka', 9703, 'odk0099j', '2022-01-14 15:11:01', '2022-01-14 15:11:01'),
+(4, 1, 'hussain', '01977875633', 'sylhet', 5174, 'osh998w', '2022-01-16 15:15:52', '2022-01-16 15:15:52'),
+(5, 4, 'shahi', '01977875644', 'rajshahi', 6064, 'iufa003', '2022-01-16 15:16:18', '2022-01-16 15:16:18');
+
+create table users (
+  id int(11) NOT NULL,
+  email varchar(255) DEFAULT NULL,
+  password varchar(255) DEFAULT NULL,
+  name varchar(255) DEFAULT NULL,
+  user_type varchar(255) NOT NULL DEFAULT 'user',
+  created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at timestamp NULL DEFAULT CURRENT_TIMESTAMP
+)
+
+INSERT INTO users (id, email, password, name, user_type, created_at, updated_at) VALUES
+(1, 'shahi@gmail.com', 'password', 'Shahi', 'user', '2021-12-31 09:32:43', '2021-12-31 09:32:43'),
+(5, 'kamal@gmail.com', 'password', 'Kamal Hussain', 'admin', '2021-12-31 12:19:01', '2021-12-31 12:19:01');
+
+ALTER TABLE ambulances
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE bookings
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE users
+  ADD PRIMARY KEY (id);
+
+ALTER TABLE ambulances
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+ALTER TABLE bookings
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+ALTER TABLE users
+  MODIFY id int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
