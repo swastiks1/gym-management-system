@@ -67,9 +67,9 @@ public class Report extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel21.setBackground(new java.awt.Color(204, 255, 204));
+        jLabel21.setBackground(new java.awt.Color(0, 0, 0));
         jLabel21.setFont(new java.awt.Font("Bookman Old Style", 1, 20)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(34, 34, 47));
+        jLabel21.setForeground(new java.awt.Color(204, 255, 204));
         jLabel21.setText("Report List");
         jLabel21.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel21.setOpaque(true);
@@ -138,7 +138,7 @@ public class Report extends javax.swing.JFrame {
 
         jTextField1.setBackground(new java.awt.Color(0, 0, 0));
         jTextField1.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setForeground(new java.awt.Color(204, 255, 204));
         jTextField1.setText("MY FITNESS");
         jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {

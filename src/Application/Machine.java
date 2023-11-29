@@ -337,6 +337,11 @@ public class Machine extends javax.swing.JFrame {
                 DeleteButtonMouseClicked(evt);
             }
         });
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
         jPanel3.add(DeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, 70, -1));
 
         McModel.setBackground(new java.awt.Color(102, 102, 102));
@@ -356,9 +361,9 @@ public class Machine extends javax.swing.JFrame {
         jLabel17.setText("MACHINE MANAGEMENT");
         jPanel3.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 250, -1));
 
-        jLabel15.setBackground(new java.awt.Color(204, 255, 204));
-        jLabel15.setFont(new java.awt.Font("Lucida Bright", 1, 20)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(34, 34, 47));
+        jLabel15.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel15.setFont(new java.awt.Font("Bookman Old Style", 1, 20)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(204, 255, 204));
         jLabel15.setText("Machine List");
         jLabel15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel15.setAlignmentY(1.0F);
@@ -372,7 +377,7 @@ public class Machine extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 982, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -569,6 +574,10 @@ public class Machine extends javax.swing.JFrame {
     private void McWeightCapacityActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         // TODO add your handling code here:
     }                                                
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+    }                                            
 
     /**
      * @param args the command line arguments
