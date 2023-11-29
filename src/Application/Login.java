@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package Application;
 
 import java.awt.Toolkit;
@@ -5,16 +9,16 @@ import javax.swing.JOptionPane;
 import java.sql.*;
 import java.sql.ResultSet;
 
-
+/**
+ *
+ * @author Zai
+ */
 public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    private Connection conn;
-
     public Login() {
-        conn = DBConnect.connect();
         initComponents();
         setIcon();
     }
@@ -138,6 +142,8 @@ public class Login extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LoginButtonActionPerformed
+        Connection con = null;
+        PreparedStatement pst = null;
         ResultSet rs = null, rs1 = null;
         Statement st = null, st1 = null;
     private void LoginButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseClicked
@@ -145,7 +151,8 @@ public class Login extends javax.swing.JFrame {
         String pass = new String(Password.getPassword());
   
         try {
-              st = conn.createStatement();
+              con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
+              st = con.createStatement();
               String query = "Select * from login";
               rs = st.executeQuery(query);
               while(rs.next())
@@ -158,11 +165,11 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
                     }
                     else if(usr.isEmpty()|| pass.isEmpty()){
-                    JOptionPane.showMessageDialog(this, "Enter Username and Password");
+                    JOptionPane.showMessageDialog(this, "Enter UserName and Password");
               
                     }
                     else{
-                    JOptionPane.showMessageDialog(this, "Wrong Username Or Password");
+                    JOptionPane.showMessageDialog(this, "Wrong UserName Or Password");
                     Username.setText(null);
                     Password.setText(null);}}
         
@@ -183,7 +190,8 @@ public class Login extends javax.swing.JFrame {
     public boolean isPasswordVaild(String usr, String pass){
   
         try {
-              st = conn.createStatement();
+              con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
+              st = con.createStatement();
               String query = "Select * from login";
               rs = st.executeQuery(query);
               while(rs.next())

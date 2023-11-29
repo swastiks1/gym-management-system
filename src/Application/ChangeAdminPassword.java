@@ -1,22 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package Application;
 
 import java.awt.Toolkit;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.*;
 
-
+/**
+ *
+ * @author Zai
+ */
 public class ChangeAdminPassword extends javax.swing.JFrame {
 
     /**
      * Creates new form ChangeAdminPassword
      */
-    private Connection conn;
     public ChangeAdminPassword() {
-
         initComponents();
         setIcon();
-        conn = DBConnect.connect();
     }
 
     /**
@@ -146,7 +151,10 @@ public class ChangeAdminPassword extends javax.swing.JFrame {
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CancelButtonActionPerformed
-
+        Connection con = null;
+        PreparedStatement pst = null;
+        ResultSet rs = null, rs1 = null;
+        Statement st = null, st1 = null;
     private void SaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveButtonMouseClicked
         // TODO add your handling code here:
         if(NewUser.getText().isEmpty() || NewPass.getText().isEmpty()){
@@ -154,14 +162,15 @@ public class ChangeAdminPassword extends javax.swing.JFrame {
        }
         else{
            try {
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
             String query = "Update login set username=?,password=? where id=?";
-            PreparedStatement edit = conn.prepareStatement(query);
+            PreparedStatement edit = con.prepareStatement(query);
             edit.setString(1, NewUser.getText());
             edit.setString(2, NewPass.getText());
             edit.setInt(3, 1);
             int row = edit.executeUpdate();
-            JOptionPane.showMessageDialog(this, "New Username and Password Updated","Update",JOptionPane.PLAIN_MESSAGE);
-            conn.close();
+            JOptionPane.showMessageDialog(this, "New Username and Password is Updated","Update",JOptionPane.PLAIN_MESSAGE);
+            con.close();
             new Login().setVisible(true);
             this.dispose();
            } catch (Exception e) {

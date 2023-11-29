@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package Application;
 
 import java.awt.Toolkit;
@@ -10,15 +14,16 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
-
+/**
+ *
+ * @author Zai
+ */
 public class Machine extends javax.swing.JFrame {
 
     /**
      * Creates new form Machine
      */
-    private Connection conn;
     public Machine() {
-        conn = DBConnect.connect();
         initComponents();
         setIcon();
         displayMachine();
@@ -392,14 +397,16 @@ public class Machine extends javax.swing.JFrame {
         new Report().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
+    Connection con = null;
+    /*2*/PreparedStatement pst = null;
     /*3*/ResultSet rs = null, rs1 = null;
     /*4*/Statement st = null, st1 = null    ;
     
     /*7*/private void displayMachine(){
         //---------------> 2 (Display database from PhpMyAdmin table into Netbean's Table while run the code)
         try {
-
-            st = conn.createStatement();
+           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
+           st = con.createStatement();
            rs = st.executeQuery("select * from machine_table");
            MachineTable.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
@@ -408,7 +415,7 @@ public class Machine extends javax.swing.JFrame {
     int McNum = 0;
     /*10*/ private void countMachine(){
         try{
-        st1 = conn.createStatement();
+        st1 = con.createStatement();
         rs1 = st1.executeQuery("select MAX(McID) from machine_table");
         rs1.next();
         McNum = (rs1.getInt(1))+1;
@@ -446,9 +453,9 @@ public class Machine extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select The Machine To Delete","Delete",JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
                 String query = "Delete from machine_table where McID="+Key;
-                Statement del = conn.createStatement();
+                Statement del = con.createStatement();
                 del.executeUpdate(query);
                 JOptionPane.showMessageDialog(this, "Machine Deleted","Delete",JOptionPane.PLAIN_MESSAGE);
                 displayMachine();
@@ -470,8 +477,8 @@ public class Machine extends javax.swing.JFrame {
         /*6*/ else{
             try{
                 /*11*/ countMachine();
-
-                PreparedStatement add = conn.prepareStatement("insert into machine_table values(?,?,?,?,?)");
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
+                PreparedStatement add = con.prepareStatement("insert into machine_table values(?,?,?,?,?)");
                 add.setInt(1,McNum);//add.setInt(1--->coloum index , TNum --> number of stores)
                 add.setString(2,McName.getText());
                 add.setString(3,McBrand.getText());
@@ -479,7 +486,7 @@ public class Machine extends javax.swing.JFrame {
                 add.setString(5, McModel.getText());
                 int row = add.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Machine Saved", "Save", JOptionPane.PLAIN_MESSAGE);
-                conn.close();
+                con.close();
                 /*9*/displayMachine();
             }
             catch (Exception e){
@@ -499,9 +506,9 @@ public class Machine extends javax.swing.JFrame {
         }
         else{
             try {
-
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
                 String query = "Update machine_table set McName=?,McBrand=?,McWeightCapacity=?,McModel=? where McID=?";
-                PreparedStatement edit = conn.prepareStatement(query);
+                PreparedStatement edit = con.prepareStatement(query);
                 edit.setString(1,McName.getText());
                 edit.setString(2,McBrand.getText());
                 edit.setString(3, McWeightCapacity.getText());
@@ -509,7 +516,7 @@ public class Machine extends javax.swing.JFrame {
                 edit.setInt(5, Key);
                 int row = edit.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Machine Updated","Update",JOptionPane.PLAIN_MESSAGE);
-                conn.close();
+                con.close();
                 displayMachine();
             } catch (Exception e) {
             }
