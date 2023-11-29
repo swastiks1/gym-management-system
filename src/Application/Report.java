@@ -52,6 +52,7 @@ public class Report extends javax.swing.JFrame {
         jSeparator16 = new javax.swing.JSeparator();
         jSeparator17 = new javax.swing.JSeparator();
         jTextField1 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         ReportTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -139,11 +140,22 @@ public class Report extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(0, 0, 0));
         jTextField1.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(204, 255, 204));
-        jTextField1.setText("MY FITNESS");
+        jTextField1.setText(" MY FITNESS");
         jTextField1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField3.setBackground(new java.awt.Color(0, 0, 0));
+        jTextField3.setFont(new java.awt.Font("Bookman Old Style", 3, 24)); // NOI18N
+        jTextField3.setForeground(new java.awt.Color(204, 255, 204));
+        jTextField3.setText("  CLUB");
+        jTextField3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
             }
         });
 
@@ -162,22 +174,31 @@ public class Report extends javax.swing.JFrame {
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(56, 56, 56))
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator13)
-                    .addComponent(jSeparator14, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator15)
-                    .addComponent(jSeparator16)
-                    .addComponent(jSeparator17, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator13, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                            .addComponent(jSeparator14, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator15)
+                            .addComponent(jSeparator16)
+                            .addComponent(jSeparator17, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(92, 92, 92)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(78, 78, 78)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103)
                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,9 +220,10 @@ public class Report extends javax.swing.JFrame {
                 .addComponent(jSeparator17, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
+        ReportTable.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ReportTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -296,9 +318,9 @@ public class Report extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -328,34 +350,6 @@ public class Report extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>                        
-
-    private void jLabel23jLabel1MouseClicked(java.awt.event.MouseEvent evt) {                                             
-        // TODO add your handling code here:
-        new Member().setVisible(true);
-        this.dispose();
-    }                                            
-
-    private void jLabel24jLabel3MouseClicked(java.awt.event.MouseEvent evt) {                                             
-        // TODO add your handling code here:
-        new Trainer().setVisible(true);
-        this.dispose();
-    }                                            
-
-    private void jLabel26jLabel5MouseClicked(java.awt.event.MouseEvent evt) {                                             
-        // TODO add your handling code here:
-        new Machine().setVisible(true);
-        this.dispose();
-    }                                            
-
-    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {                                      
-        // TODO add your handling code here:
-    }                                     
-
-    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {                                      
-        // TODO add your handling code here:
-        new Login().setVisible(true);
-        this.dispose();
-    }                                     
 
     private void ReportTableMouseClicked(java.awt.event.MouseEvent evt) {                                         
         // TODO add your handling code here:
@@ -417,12 +411,6 @@ public class Report extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                            
 
-    private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {                                      
-        // TODO add your handling code here:
-        new Payment().setVisible(true);
-        this.dispose();
-    }                                     
-
     private void ReportButton1MouseClicked(java.awt.event.MouseEvent evt) {                                           
         // TODO add your handling code here:
     }                                          
@@ -439,9 +427,47 @@ public class Report extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                             
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    }                                           
+
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.dispose();
+    }                                     
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+    }                                     
+
+    private void jLabel26jLabel5MouseClicked(java.awt.event.MouseEvent evt) {                                             
+        // TODO add your handling code here:
+        new Machine().setVisible(true);
+        this.dispose();
+    }                                            
+
+    private void jLabel25MouseClicked(java.awt.event.MouseEvent evt) {                                      
+        // TODO add your handling code here:
+        new Payment().setVisible(true);
+        this.dispose();
+    }                                     
+
+    private void jLabel24jLabel3MouseClicked(java.awt.event.MouseEvent evt) {                                             
+        // TODO add your handling code here:
+        new Trainer().setVisible(true);
+        this.dispose();
+    }                                            
+
+    private void jLabel23jLabel1MouseClicked(java.awt.event.MouseEvent evt) {                                             
+        // TODO add your handling code here:
+        new Member().setVisible(true);
+        this.dispose();
+    }                                            
 
     /**
      * @param args the command line arguments
@@ -503,6 +529,7 @@ public class Report extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator17;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration                   
 
     private void setIcon() {
