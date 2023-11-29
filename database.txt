@@ -1,0 +1,58 @@
+CREATE TABLE `login` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `login` (`id`, `username`, `password`) VALUES
+(1, 'admin', '123');
+
+CREATE TABLE `machine_table` (
+  `McID` int(11) NOT NULL,
+  `McName` varchar(50) NOT NULL,
+  `McBrand` varchar(50) NOT NULL,
+  `McWeightCapacity` varchar(50) NOT NULL,
+  `McModel` varchar(50) NOT NULL,
+  PRIMARY KEY (`McID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `member_table` (
+  `MID` int(11) NOT NULL,
+  `MName` varchar(50) NOT NULL,
+  `MAge` int(11) NOT NULL,
+  `MGender` varchar(10) NOT NULL,
+  `MTiming` varchar(20) NOT NULL,
+  `MPhoneNumber` varchar(20) NOT NULL,
+  `MTrainer` varchar(50) NOT NULL,
+  PRIMARY KEY (`MID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `payment_table` (
+  `PID` int(11) NOT NULL,
+  `PMember` varchar(50) NOT NULL,
+  `PAmount` int(11) NOT NULL,
+  `PDate` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `report_table` (
+  `RID` int(11) NOT NULL,
+  `Title` varchar(50) NOT NULL,
+  `Feedback` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `trainer_table` (
+  `TID` int(11) NOT NULL,
+  `TName` varchar(50) NOT NULL,
+  `TAge` int(11) NOT NULL,
+  `TGender` varchar(10) NOT NULL,
+  `TAddress` varchar(500) NOT NULL,
+  `TPhoneNumber` varchar(20) NOT NULL,
+  PRIMARY KEY (`TID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+
+
+
+
