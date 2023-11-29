@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Application;
 
 import javax.swing.*;
@@ -14,16 +10,15 @@ import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author Zai
- */
+
 public class Trainer extends javax.swing.JFrame {
 
     /**
      * Creates new form Trainer
      */
+    private Connection conn;
     public Trainer() {
+        conn = DBConnect.connect();
         initComponents();
         setIcon();
         /*8*/displayTrainer();
@@ -409,17 +404,15 @@ public class Trainer extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 //Step by Step to connect with MySQL
-    //Start here 
-    /*1*/Connection con = null;
-    /*2*/PreparedStatement pst = null;
+    //Start here
     /*3*/ResultSet rs = null, rs1 = null;
     /*4*/Statement st = null, st1 = null    ;
     
     /*7*/private void displayTrainer(){
         //---------------> 2 (Display database from PhpMyAdmin table into Netbean's Table while run the code)
         try {
-           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
-           st = con.createStatement();
+
+           st = conn.createStatement();
            rs = st.executeQuery("select * from trainer_table");
            TrainerTable.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
@@ -428,7 +421,7 @@ public class Trainer extends javax.swing.JFrame {
     int TNum = 0;
     /*10*/ private void countTrainer(){
         try{
-        st1 = con.createStatement();
+        st1 = conn.createStatement();
         rs1 = st1.executeQuery("select MAX(TID) from trainer_table");
         rs1.next();
         TNum = (rs1.getInt(1))+1;
@@ -446,8 +439,8 @@ public class Trainer extends javax.swing.JFrame {
         /*6*/ else{
             try{
                 /*11*/ countTrainer();
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
-                PreparedStatement add = con.prepareStatement("insert into trainer_table values(?,?,?,?,?,?)");
+
+                PreparedStatement add = conn.prepareStatement("insert into trainer_table values(?,?,?,?,?,?)");
                 add.setInt(1,TNum);//add.setInt(1--->coloum index , TNum --> number of stores)
                 add.setString(2,TName.getText());
                 add.setInt(3,Integer.valueOf(TAge.getText()));
@@ -456,7 +449,7 @@ public class Trainer extends javax.swing.JFrame {
                 add.setString(6, TPhoneNumber.getText());
                 int row = add.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Trainer Saved", "Save", JOptionPane.PLAIN_MESSAGE);
-                con.close();
+                conn.close();
                 /*9*/displayTrainer();
             }
             catch (Exception e){
@@ -489,9 +482,8 @@ int Key = 0;
            JOptionPane.showMessageDialog(this, "Select The Trainer To Delete","Delete",JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
              String query = "Delete from trainer_table where TID="+Key;
-             Statement del = con.createStatement();
+             Statement del = conn.createStatement();
              del.executeUpdate(query);
              JOptionPane.showMessageDialog(this, "Trainer Deleted","Delete",JOptionPane.PLAIN_MESSAGE);
              displayTrainer();
@@ -508,9 +500,8 @@ int Key = 0;
        }
         else{
            try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
             String query = "Update trainer_table set TName=?,TAge=?,TGender=?,TAddress=?,TPhoneNumber=? where TID=?";
-            PreparedStatement edit = con.prepareStatement(query);
+            PreparedStatement edit = conn.prepareStatement(query);
             edit.setString(1, TName.getText());
             edit.setInt(2, Integer.valueOf(TAge.getText()));
             edit.setString(3, TGen.getSelectedItem().toString());
@@ -519,7 +510,7 @@ int Key = 0;
             edit.setInt(6, Key);
             int row = edit.executeUpdate();
             JOptionPane.showMessageDialog(this, "Trainer Updated","Update",JOptionPane.PLAIN_MESSAGE);
-            con.close();
+            conn.close();
             displayTrainer();
            } catch (Exception e) {
            }

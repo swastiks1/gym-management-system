@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Application;
 
 import java.awt.Toolkit;
@@ -13,16 +9,15 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author Zai
- */
+
 public class Report extends javax.swing.JFrame {
 
     /**
      * Creates new form Report
      */
+    private Connection conn;
     public Report() {
+        conn = DBConnect.connect();
         initComponents();
         setIcon();
         displayReport();
@@ -351,15 +346,13 @@ public class Report extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ReportTableMouseClicked
  
-        Connection con = null;
-    /*2*/PreparedStatement pst = null;
+//        Connection con = null;
     /*3*/ResultSet rs = null, rs1 = null;
     /*4*/Statement st = null, st1 = null;
          private void displayReport(){
         //---------------> 2 (Display database from PhpMyAdmin table into Netbean's Table while run the code)
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
-           st = con.createStatement();
+           st = conn.createStatement();
            rs = st.executeQuery("select * from report_table");
            ReportTable.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
@@ -368,7 +361,7 @@ public class Report extends javax.swing.JFrame {
         int RNum = 0;
         private void countReport(){
             try{
-                st1 = con.createStatement();
+                st1 = conn.createStatement();
                 rs1 = st1.executeQuery("select MAX(RID) from report_table");
                 rs1.next();
                 RNum = (rs1.getInt(1))+1;
@@ -386,14 +379,14 @@ public class Report extends javax.swing.JFrame {
         /*6*/ else{
             try{
                 /*11*/ countReport();
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","");
-                PreparedStatement add = con.prepareStatement("insert into report_table values(?,?,?)");
+
+                PreparedStatement add = conn.prepareStatement("insert into report_table values(?,?,?)");
                 add.setInt(1,RNum);//add.setInt(1--->coloum index , TNum --> number of stores)
                 add.setString(2,Option.getSelectedItem().toString());
                 add.setString(3, ReportBox.getText());
                 int row = add.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Report Saved", "Report", JOptionPane.PLAIN_MESSAGE);
-                con.close();
+                conn.close();
                 /*9*/displayReport();
             }
             catch (Exception e){

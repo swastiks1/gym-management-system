@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Application;
 
 import java.awt.Toolkit;
@@ -14,16 +10,15 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author Zai
- */
+
 public class Member extends javax.swing.JFrame {
 
     /**
      * Creates new form Loding
      */
+    private Connection conn;
     public Member() {
+        conn = DBConnect.connect();
         initComponents();
         setIcon();
         /*9*/getTrainer();
@@ -408,16 +403,14 @@ public class Member extends javax.swing.JFrame {
 
     //Step by Step to connect with MySQL
     //Start here 
-    /*1*/Connection con = null;
-    /*2*/PreparedStatement pst = null;
+    
     /*3*/ResultSet rs = null, rs1 = null;
     /*4*/Statement st = null, st1 = null;
         /*7*/private void displayMember(){
         //---------------> 2 (Display database from PhpMyAdmin table into Netbean's Table while run the code)
        try {
-           con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
 
-           st = con.createStatement();
+           st = conn.createStatement();
            rs = st.executeQuery("select * from member_table");
            MemberTable.setModel(DbUtils.resultSetToTableModel(rs));
         } catch (Exception e) {
@@ -426,9 +419,8 @@ public class Member extends javax.swing.JFrame {
         
         /*8*/private void getTrainer(){
         try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
 
-            st = con.createStatement();
+            st = conn.createStatement();
               String query = "Select * from trainer_table";
               rs = st.executeQuery(query);
               while(rs.next())
@@ -442,7 +434,7 @@ public class Member extends javax.swing.JFrame {
     int MNum = 0;
     /*11*/ private void countMember(){
         try{
-        st1 = con.createStatement();
+        st1 = conn.createStatement();
         rs1 = st1.executeQuery("select MAX(MID) from member_table");
         rs1.next();
         MNum = (rs1.getInt(1))+1;
@@ -479,10 +471,8 @@ public class Member extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Select The Member To Delete","Delete",JOptionPane.INFORMATION_MESSAGE);
         }else{
             try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
-
                 String query = "Delete from member_table where MID="+Key;
-                Statement del = con.createStatement();
+                Statement del = conn.createStatement();
                 del.executeUpdate(query);
                 JOptionPane.showMessageDialog(this, "Member Deleted","Delete",JOptionPane.PLAIN_MESSAGE);
                 displayMember();
@@ -501,9 +491,8 @@ public class Member extends javax.swing.JFrame {
         /*6*/ else{
             try {
                 /*11*/ countMember();
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
-
-                PreparedStatement add = con.prepareStatement("insert into member_table values(?,?,?,?,?,?,?)");
+                
+                PreparedStatement add = conn.prepareStatement("insert into member_table values(?,?,?,?,?,?,?)");
                 add.setInt(1,MNum);//add.setInt(1--->coloum index , TNum --> number of stores)
                 add.setString(2,MName.getText());
                 add.setInt(3,Integer.valueOf(MAge.getText()));
@@ -513,7 +502,7 @@ public class Member extends javax.swing.JFrame {
                 add.setString(7,MTrainer.getSelectedItem().toString());
                 int row = add.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Member Saved", "Save", JOptionPane.PLAIN_MESSAGE);
-                con.close();
+                conn.close();
                 /*9*/displayMember();
             }
             catch (Exception e){
@@ -529,10 +518,9 @@ public class Member extends javax.swing.JFrame {
         }
         else{
             try {
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/gym_management_system","root","anirudh");
 
                 String query = "Update member_table set MName=?,MAge=?,MGender=?,MTiming=?,MPhoneNumber=?,MTrainer=? where MID=?";
-                PreparedStatement edit = con.prepareStatement(query);
+                PreparedStatement edit = conn.prepareStatement(query);
                 edit.setString(1,MName.getText());
                 edit.setInt(2,Integer.valueOf(MAge.getText()));
                 edit.setString(3, MGen.getSelectedItem().toString());
@@ -543,7 +531,7 @@ public class Member extends javax.swing.JFrame {
                 edit.setInt(7, Key);
                 int row = edit.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Trainer Updated","Update",JOptionPane.PLAIN_MESSAGE);
-                con.close();
+                conn.close();
                 displayMember();
             } catch (Exception e) {
             }
